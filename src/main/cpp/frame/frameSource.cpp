@@ -26,7 +26,7 @@ Frame FrameSource::getCurrentFrame() {
   return Frame{array.getMat(), steady_clock::now()};
 };
 
-void FrameSource::registerCallbackOnNewFrame(void (*cb)(Frame frame)) { callbacks.push_back(cb); };
+void FrameSource::registerCallbackOnNewFrame(std::function<void(Frame *)> cb) { callbacks.push_back(cb); };
 
 float FrameSource::getFPS() { return fps; };
 
@@ -50,9 +50,9 @@ void FrameSource::frameWatcherFunction() {
 
       Frame frame = Frame{array.getMat(), now};
 
-      for (std::function<void(Frame)> cb : callbacks) {
+      for (std::function<void(Frame *)> cb : callbacks) {
         if (cb != nullptr)
-          cb(frame);
+          cb(&frame);
       };
     };
   };

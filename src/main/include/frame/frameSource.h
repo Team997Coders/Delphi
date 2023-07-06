@@ -16,7 +16,7 @@ public:
 
   Frame getCurrentFrame();
 
-  void registerCallbackOnNewFrame(void (*cb)(Frame frame));
+  void registerCallbackOnNewFrame(std::function<void(Frame *)>);
 
   float getFPS();
 
@@ -31,7 +31,7 @@ private:
 
   volatile bool runFramewatcherLoop;
 
-  std::vector<std::function<void(Frame)>> callbacks;
+  std::vector<std::function<void(Frame *)>> callbacks;
 
   std::chrono::steady_clock::time_point lastFrameTimestamp;
 
