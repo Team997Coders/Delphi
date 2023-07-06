@@ -4,14 +4,23 @@ TimedCallbackProvider::TimedCallbackProvider(std::vector<std::function<void()>> 
                                              std::chrono::milliseconds period) {
   this->callbacks = callbacks;
   this->period = period;
+};
 
-  runThread = true;
-  thread = std::thread(&TimedCallbackProvider::threadEntryPoint, this);
+TimedCallbackProvider::TimedCallbackProvider(std::function<void()> callback, std::chrono::milliseconds period) {
+  std::vector<std::function<void()>> vector{};
+  vector.push_back(callback);
+  this->callbacks = vector;
+  this->period = period;
 };
 
 TimedCallbackProvider::~TimedCallbackProvider() {
   runThread = false;
   thread.join();
+};
+
+void TimedCallbackProvider::start() {
+  runThread = true;
+  thread = std::thread(&TimedCallbackProvider::threadEntryPoint, this);
 };
 
 void TimedCallbackProvider::threadEntryPoint() {

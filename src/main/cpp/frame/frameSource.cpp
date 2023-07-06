@@ -39,7 +39,7 @@ void FrameSource::frameWatcherFunction() {
     if (capture.read(array)) {
       steady_clock::time_point now = steady_clock::now();
 
-      float elapsedSeconds = duration_cast<milliseconds>(now - lastFrameTimestamp).count() / 1000;
+      float elapsedSeconds = duration_cast<milliseconds>(now - lastFrameTimestamp).count() / 1000.f;
       // converting ourselves to keep ms precision
 
       if (elapsedSeconds != 0) {

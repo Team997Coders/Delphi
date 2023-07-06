@@ -9,7 +9,11 @@ class TimedCallbackProvider {
 public:
   TimedCallbackProvider(std::vector<std::function<void()>> callbacks, std::chrono::milliseconds period);
 
+  TimedCallbackProvider(std::function<void()> callback, std::chrono::milliseconds period);
+
   ~TimedCallbackProvider();
+
+  void start();
 
 private:
   std::vector<std::function<void()>> callbacks;
