@@ -5,6 +5,7 @@
 
 #include <mutex>
 #include <thread>
+#include <atomic>
 
 class ProcessingSupervisor {
 public:
@@ -14,7 +15,7 @@ public:
 
 private:
   std::mutex frameBufferAccess;
-  Frame *frameBuffer;
+  std::atomic<Frame*> frameBuffer;
 
   FrameSource *source;
   ProcessingSink *sink;
@@ -27,7 +28,7 @@ private:
 
   std::thread mainThread;
 
-  volatile bool runLoop;
+  std::atomic_bool runLoop;
 
   std::chrono::steady_clock::time_point highestFrameTimestamp;
 };

@@ -4,6 +4,7 @@
 #include <functional>
 #include <thread>
 #include <vector>
+#include <atomic>
 
 class TimedCallbackProvider {
 public:
@@ -22,5 +23,5 @@ private:
   std::thread thread;
   void threadEntryPoint();
 
-  volatile bool runThread;
+  std::atomic_bool runThread;
 };

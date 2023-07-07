@@ -7,6 +7,7 @@
 #include <functional>
 #include <thread>
 #include <vector>
+#include <atomic>
 
 class FrameSource {
 public:
@@ -29,13 +30,13 @@ private:
 
   void frameWatcherFunction();
 
-  volatile bool runFramewatcherLoop;
+  std::atomic_bool runFramewatcherLoop;
 
   std::vector<std::function<void(Frame *)>> callbacks;
 
   std::chrono::steady_clock::time_point lastFrameTimestamp;
 
-  float fps;
+  std::atomic<float> fps;
 
-  float fpsMovingAverageGain;
+  std::atomic<float> fpsMovingAverageGain;
 };
