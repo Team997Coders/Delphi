@@ -1,10 +1,10 @@
 #pragma once
 
+#include <atomic>
 #include <chrono>
 #include <functional>
 #include <thread>
 #include <vector>
-#include <atomic>
 
 class TimedCallbackProvider {
 public:

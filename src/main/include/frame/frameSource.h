@@ -1,21 +1,19 @@
 #pragma once
 
-#include "opencv2/videoio.hpp"
-
 #include "frame/frame.h"
 
+#include <atomic>
 #include <functional>
 #include <thread>
 #include <vector>
-#include <atomic>
 
 class FrameSource {
 public:
-  FrameSource(int cameraIndex);
+  FrameSource();
 
   ~FrameSource();
 
-  Frame getCurrentFrame();
+  virtual Frame getCurrentFrame() = 0;
 
   void registerCallbackOnNewFrame(std::function<void(Frame *)>);
 
@@ -24,8 +22,6 @@ public:
   void setFPSMovingAverageGain(float gain);
 
 private:
-  cv::VideoCapture capture;
-
   std::thread frameWatcher;
 
   void frameWatcherFunction();

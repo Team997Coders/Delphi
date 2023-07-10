@@ -2,9 +2,7 @@
 
 using namespace std::chrono;
 
-FrameSource::FrameSource(int cameraIndex) {
-  capture = cv::VideoCapture{cameraIndex};
-
+FrameSource::FrameSource() {
   lastFrameTimestamp = steady_clock::now();
   fps = 0;
 
@@ -17,13 +15,6 @@ FrameSource::FrameSource(int cameraIndex) {
 FrameSource::~FrameSource() {
   runFramewatcherLoop = false;
   frameWatcher.join();
-}
-
-Frame FrameSource::getCurrentFrame() {
-  cv::OutputArray array{};
-  capture.read(array);
-
-  return Frame{array.getMat(), steady_clock::now()};
 };
 
 void FrameSource::registerCallbackOnNewFrame(std::function<void(Frame *)> cb) { callbacks.push_back(cb); };
@@ -34,9 +25,8 @@ void FrameSource::setFPSMovingAverageGain(float gain) { fpsMovingAverageGain = s
 
 void FrameSource::frameWatcherFunction() {
   while (runFramewatcherLoop) {
-    cv::OutputArray array{};
-
-    if (capture.read(array)) {
+    Frame frame = getCurrentFrame();
+    if (!frame.image.empty()) {
       steady_clock::time_point now = steady_clock::now();
 
       float elapsedSeconds = duration_cast<milliseconds>(now - lastFrameTimestamp).count() / 1000.f;
@@ -47,8 +37,6 @@ void FrameSource::frameWatcherFunction() {
 
         fps = (fps * fpsMovingAverageGain) + (singleFPS * (1 - fpsMovingAverageGain));
       };
-
-      Frame frame = Frame{array.getMat(), now};
 
       for (std::function<void(Frame *)> cb : callbacks) {
         if (cb != nullptr)

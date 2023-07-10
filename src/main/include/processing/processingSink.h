@@ -7,5 +7,6 @@ public:
   ProcessingSink();
 
   ~ProcessingSink();
+
   bool accept(const Frame *frame);
 };

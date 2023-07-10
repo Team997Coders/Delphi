@@ -3,9 +3,9 @@
 #include "frame/frameSource.h"
 #include "processing/processingSink.h"
 
+#include <atomic>
 #include <mutex>
 #include <thread>
-#include <atomic>
 
 class ProcessingSupervisor {
 public:
@@ -15,7 +15,7 @@ public:
 
 private:
   std::mutex frameBufferAccess;
-  std::atomic<Frame*> frameBuffer;
+  std::atomic<Frame *> frameBuffer;
 
   FrameSource *source;
   ProcessingSink *sink;
