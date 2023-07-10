@@ -4,16 +4,16 @@ project(Delphi)
 set(VERSION 0.1.0)
 set(FRIENDLY_VERSION "0.1.0")
 
-if (DEFINED NT_NAME)
-    MESSAGE(STATUS "Using provided name: ${NT_NAME}")
-else (DEFINED NT_NAME)
+if (DEFINED CONFIG_NAME)
+    MESSAGE(STATUS "Using provided name: ${CONFIG_NAME}")
+else (DEFINED CONFIG_NAME)
     MESSAGE(STATUS "Using default name")
-    set(NT_NAME "defaultName")
-endif (DEFINED NT_NAME)
+    set(CONFIG_NAME "defaultName")
+endif (DEFINED CONFIG_NAME)
 
 set(CMAKE_PREFIX_PATH ${CMAKE_MODULE_PATH} "build")
 
-add_compile_definitions(VERSION="${FRIENDLY_VERSION}" NT_NAME="${NT_NAME}")
+add_compile_definitions(VERSION="${FRIENDLY_VERSION}" CONFIG_NAME="${CONFIG_NAME}")
 
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})

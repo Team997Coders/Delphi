@@ -6,6 +6,7 @@
 #include <functional>
 #include <thread>
 #include <vector>
+#include <string>
 
 class FrameSource {
 public:
@@ -14,6 +15,8 @@ public:
   ~FrameSource();
 
   virtual Frame getCurrentFrame() = 0;
+
+  virtual std::string getUniqueName() = 0;
 
   void registerCallbackOnNewFrame(std::function<void(Frame *)>);
 

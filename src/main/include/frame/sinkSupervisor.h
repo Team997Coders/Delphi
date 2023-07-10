@@ -11,6 +11,8 @@ class SinkSupervisor {
 public:
   SinkSupervisor(FrameSource *source, FrameSink *sink, float fpsLimit);
 
+  SinkSupervisor(FrameSource *source, FrameSink *sink);
+
   ~SinkSupervisor();
 
 private:

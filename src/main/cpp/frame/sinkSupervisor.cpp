@@ -21,6 +21,10 @@ SinkSupervisor::SinkSupervisor(FrameSource *source, FrameSink *sink, float fpsLi
   };
 };
 
+SinkSupervisor::SinkSupervisor(FrameSource *source, FrameSink *sink) {
+  SinkSupervisor(source, sink, -1);
+};
+
 SinkSupervisor::~SinkSupervisor() {
   runLoop = false;
   mainThread.join();

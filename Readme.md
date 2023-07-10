@@ -19,7 +19,7 @@ OpenCV sources can often be found in package managers as `libopencv-dev`, but so
 
 Delphi is generally meant to be built in-place on the target coprocessor device, but cross-compiling (e.g. for an ARM64 Raspberry Pi) is possible using cmake argument `-DCMAKE_TOOLCHAIN_FILE="/path/to/file.cmake"`
 
-To specify the `NT_NAME` (identifier for NetworkTables associated with an instance of Delphi), add the cmake argument `-DNT_NAME="new_name"`.
+To specify the `NT_NAME` (identifier for NetworkTables associated with an instance of Delphi), add the cmake argument `-DCONFIG_NAME="new_name"`.
 
 ```
 $ git clone https://github.com/Team997Coders/Delphi.git
