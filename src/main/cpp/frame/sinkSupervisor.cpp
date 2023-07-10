@@ -1,32 +1,32 @@
-#include "processing/processingSupervisor.h"
+#include "frame/sinkSupervisor.h"
 #include "util/timedCallbackProvider.h"
 
-ProcessingSupervisor::ProcessingSupervisor(FrameSource *source, ProcessingSink *sink, float fpsLimit) {
+SinkSupervisor::SinkSupervisor(FrameSource *source, FrameSink *sink, float fpsLimit) {
   this->source = source;
   this->sink = sink;
 
   runLoop = true;
-  mainThread = std::thread{&ProcessingSupervisor::loop, this};
+  mainThread = std::thread{&SinkSupervisor::loop, this};
 
   frameBuffer = nullptr;
 
   highestFrameTimestamp = std::chrono::steady_clock::time_point::min();
 
   if (fpsLimit > 0) {
-    TimedCallbackProvider cb = TimedCallbackProvider{std::bind(&ProcessingSupervisor::fpsCallback, this),
+    TimedCallbackProvider cb = TimedCallbackProvider{std::bind(&SinkSupervisor::fpsCallback, this),
                                                      std::chrono::milliseconds{static_cast<int>(1000 / fpsLimit)}};
     cb.start();
   } else {
-    source->registerCallbackOnNewFrame(std::bind(&ProcessingSupervisor::newFrameCallback, this, std::placeholders::_1));
+    source->registerCallbackOnNewFrame(std::bind(&SinkSupervisor::newFrameCallback, this, std::placeholders::_1));
   };
 };
 
-ProcessingSupervisor::~ProcessingSupervisor() {
+SinkSupervisor::~SinkSupervisor() {
   runLoop = false;
   mainThread.join();
 };
 
-void ProcessingSupervisor::loop() {
+void SinkSupervisor::loop() {
   while (runLoop) {
     if (frameBuffer != nullptr) {
       frameBufferAccess.lock();
@@ -38,7 +38,7 @@ void ProcessingSupervisor::loop() {
   };
 };
 
-void ProcessingSupervisor::newFrameCallback(Frame *frame) {
+void SinkSupervisor::newFrameCallback(Frame *frame) {
   if (frame != nullptr) {
     frameBufferAccess.lock();
     frameBuffer = frame;
@@ -46,7 +46,7 @@ void ProcessingSupervisor::newFrameCallback(Frame *frame) {
   };
 };
 
-void ProcessingSupervisor::fpsCallback() {
+void SinkSupervisor::fpsCallback() {
   Frame frame = source->getCurrentFrame();
 
   if (frame.captureTimestamp > highestFrameTimestamp) {

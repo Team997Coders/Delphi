@@ -1,24 +1,24 @@
 #pragma once
 
+#include "frame/frameSink.h"
 #include "frame/frameSource.h"
-#include "processing/processingSink.h"
 
 #include <atomic>
 #include <mutex>
 #include <thread>
 
-class ProcessingSupervisor {
+class SinkSupervisor {
 public:
-  ProcessingSupervisor(FrameSource *source, ProcessingSink *sink, float fpsLimit);
+  SinkSupervisor(FrameSource *source, FrameSink *sink, float fpsLimit);
 
-  ~ProcessingSupervisor();
+  ~SinkSupervisor();
 
 private:
   std::mutex frameBufferAccess;
   std::atomic<Frame *> frameBuffer;
 
   FrameSource *source;
-  ProcessingSink *sink;
+  FrameSink *sink;
 
   void loop();
 
