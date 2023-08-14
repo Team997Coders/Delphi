@@ -21,9 +21,7 @@ SinkSupervisor::SinkSupervisor(FrameSource *source, FrameSink *sink, float fpsLi
   };
 };
 
-SinkSupervisor::SinkSupervisor(FrameSource *source, FrameSink *sink) {
-  SinkSupervisor(source, sink, -1);
-};
+SinkSupervisor::SinkSupervisor(FrameSource *source, FrameSink *sink) { SinkSupervisor(source, sink, -1); };
 
 SinkSupervisor::~SinkSupervisor() {
   runLoop = false;
@@ -37,7 +35,7 @@ void SinkSupervisor::loop() {
       Frame *storage = frameBuffer;
       frameBuffer = nullptr;
       frameBufferAccess.unlock();
-      sink->accept(storage);
+      sink->accept(*storage);
     };
   };
 };

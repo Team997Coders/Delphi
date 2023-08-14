@@ -18,10 +18,14 @@ add_compile_definitions(VERSION="${FRIENDLY_VERSION}" CONFIG_NAME="${CONFIG_NAME
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
+find_package(wpinet REQUIRED)
+find_package(cscore REQUIRED)
+find_package(ntcore REQUIRED)
+
 include_directories(${CMAKE_MODULE_PATH} "src/main/include")
 
 file(GLOB_RECURSE SOURCES CMAKE_CONFIGURE_DEPENDS "src/main/**.cpp")
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
+target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS} wpinet cscore ntcore)

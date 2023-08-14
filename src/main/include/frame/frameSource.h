@@ -4,9 +4,9 @@
 
 #include <atomic>
 #include <functional>
+#include <string>
 #include <thread>
 #include <vector>
-#include <string>
 
 class FrameSource {
 public:

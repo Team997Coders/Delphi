@@ -1,15 +1,26 @@
 #pragma once
 
-#include "frame/frame.h"
+#include "frame/frameSink.h"
 
 #include <string>
 
-#include "frame/frameSource.h"
+#include "cscore_oo.h"
+#include "cscore_raw_cv.h"
 
-class CameraServerStreamInstance {
+struct CameraServerStreamConfig {
+  uint16_t width_px;
+  uint16_t height_px;
+  uint16_t reportedFPS;
+};
+
+class CameraServerStreamInstance : FrameSink {
 
 public:
-  CameraServerStreamInstance(std::string name, FrameSource source);
+  CameraServerStreamInstance(std::string name, uint16_t tcpPort, CameraServerStreamConfig config);
 
-  void consume(Frame frame);
+  bool accept(Frame frame);
+
+private:
+  cs::MjpegServer mjpegSv;
+  cs::RawCvSource imgSource;
 };

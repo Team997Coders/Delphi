@@ -1,8 +1,8 @@
 #pragma once
 
-#include "frame/frameSource.h"
+#include "frame/frame.h"
 
-class FrameSink : FrameSource {
+class FrameSink {
 public:
-  virtual bool accept(const Frame *frame) = 0;
+  virtual bool accept(Frame frame) = 0;
 };

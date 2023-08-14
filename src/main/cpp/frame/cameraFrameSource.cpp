@@ -10,5 +10,7 @@ Frame CameraFrameSource::getCurrentFrame() {
 
   capture.read(array);
 
-  return Frame{array.getMat(), std::chrono::steady_clock::now()};
+  cv::Mat output = array.getMat();
+
+  return Frame{output, std::chrono::steady_clock::now()};
 };
