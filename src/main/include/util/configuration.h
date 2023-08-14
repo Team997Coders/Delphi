@@ -5,3 +5,5 @@
 std::string getVersion();
 
 std::string getName();
+
+std::uint16_t getTeamNum();
