@@ -25,8 +25,8 @@ void FrameSource::setFPSMovingAverageGain(float gain) { fpsMovingAverageGain = s
 
 void FrameSource::frameWatcherFunction() {
   while (runFramewatcherLoop) {
-    Frame frame = getCurrentFrame();
-    if (!frame.image.empty()) {
+    Frame* frame = getCurrentFrame();
+    if (!frame->image.empty()) {
       steady_clock::time_point now = steady_clock::now();
 
       float elapsedSeconds = duration_cast<milliseconds>(now - lastFrameTimestamp).count() / 1000.f;
@@ -40,7 +40,7 @@ void FrameSource::frameWatcherFunction() {
 
       for (std::function<void(Frame *)> cb : callbacks) {
         if (cb != nullptr)
-          cb(&frame);
+          cb(frame);
       };
     };
   };

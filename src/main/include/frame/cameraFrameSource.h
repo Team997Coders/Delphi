@@ -8,7 +8,7 @@ class CameraFrameSource : FrameSource {
 public:
   CameraFrameSource(uint cameraIndex);
 
-  Frame getCurrentFrame();
+  Frame* getCurrentFrame();
 
 private:
   cv::VideoCapture capture;

@@ -31,7 +31,7 @@ $ sudo make install
 
 Delphi is generally meant to be built in-place on the target coprocessor device, but cross-compiling (e.g. for an ARM64 Raspberry Pi) is possible using cmake argument `-DCMAKE_TOOLCHAIN_FILE="/path/to/file.cmake"`
 
-To specify the string identifier for an instance of Delphi over NetworkTables and CameraServer, add the cmake argument `-DCONFIG_NAME="new_name"`. Otherwise, `defaultName` is used.
+To specify the string identifier for an instance of Delphi over NetworkTables and CameraServer, add the cmake argument `-DCONFIG_NAME="new_name"`. Otherwise, `defaultName` is used. These values are cached.
 
 Run the following commands to quickly build Delphi from sources:
 ```

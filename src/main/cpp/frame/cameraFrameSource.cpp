@@ -5,12 +5,14 @@ CameraFrameSource::CameraFrameSource(uint cameraIndex) {
   // gcc complains unless we're explicit here
 };
 
-Frame CameraFrameSource::getCurrentFrame() {
+Frame* CameraFrameSource::getCurrentFrame() {
   cv::OutputArray array{};
 
   capture.read(array);
 
   cv::Mat output = array.getMat();
 
-  return Frame{output, std::chrono::steady_clock::now()};
+  Frame&& frame = {output, std::chrono::steady_clock::now()};
+
+  return &frame;
 };

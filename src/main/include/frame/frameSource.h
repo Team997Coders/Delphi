@@ -14,7 +14,7 @@ public:
 
   ~FrameSource();
 
-  virtual Frame getCurrentFrame() = 0;
+  virtual Frame* getCurrentFrame() = 0;
 
   virtual std::string getUniqueName() = 0;
 

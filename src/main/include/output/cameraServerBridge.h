@@ -1,6 +1,6 @@
 #pragma once
 
-#include "frame/frameSink.h"
+#include "frame/frame.h"
 
 #include <string>
 
@@ -13,7 +13,7 @@ struct CameraServerStreamConfig {
   uint16_t reportedFPS;
 };
 
-class CameraServerStreamInstance : FrameSink {
+class CameraServerStreamInstance {
 
 public:
   CameraServerStreamInstance(std::string name, uint16_t tcpPort, CameraServerStreamConfig config);
