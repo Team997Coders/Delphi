@@ -1,4 +1,4 @@
-#include "frame/captureSupervisor.h"
+#include "pipeline/captureSupervisor.h"
 #include "util/timedCallbackProvider.h"
 
 CaptureSupervisor::CaptureSupervisor(FrameSource *source, std::function<void(Frame *)> newFrameCallback,

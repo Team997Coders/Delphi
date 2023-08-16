@@ -1,4 +1,4 @@
-#include "frame/cameraFrameSource.h"
+#include "pipeline/cameraFrameSource.h"
 
 CameraFrameSource::CameraFrameSource(uint cameraIndex) {
   capture = cv::VideoCapture{static_cast<int>(cameraIndex)};

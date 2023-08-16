@@ -1,6 +1,6 @@
 #pragma once
 
-#include "frame/frame.h"
+#include "pipeline/frame.h"
 
 #include <atomic>
 #include <functional>

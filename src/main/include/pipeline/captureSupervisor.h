@@ -1,6 +1,6 @@
 #pragma once
 
-#include "frame/frameSource.h"
+#include "pipeline/frameSource.h"
 
 #include <functional>
 #include <thread>
